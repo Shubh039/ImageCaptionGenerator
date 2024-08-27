@@ -1,12 +1,6 @@
 # ImageCaptionGenerator
 Transform your images into vivid stories! Our Image Caption Generator effortlessly analyzes and describes your photos with engaging, accurate captions. Just upload an image, and let our advanced AI bring your visuals to life with captivating descriptions
 
-Here's a concise and informative README for your Image Caption Generator project:
-
----
-
-# Image Caption Generator
-
 ## Overview
 
 Welcome to the **Image Caption Generator**! This project leverages advanced machine learning techniques to automatically generate descriptive captions for images. Ideal for enriching image libraries, improving accessibility, and creating engaging content.
