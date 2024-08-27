@@ -1,0 +1,312 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Viewer</title>
+    <style>
+        /* General body styling */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ffecd2, #fcb69f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Main container styling */
+        .container {
+            width: 50%;
+            max-width: 500px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        /* Header styling */
+        h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        /* Image container styling */
+        #imageContainer {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Image styling */
+        #displayedImage {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 5px;
+        }
+
+        /* Button group styling */
+        .button_group input {
+            display: none;
+        }
+
+        #submit {
+            outline: none; /* Removes the default outline */
+            border: none; /* Ensures no border is present */
+        }
+
+        .button_group label, #submit {
+            display: block;
+            width: 150px;
+            margin: 15px auto;
+            padding: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #f3825c;
+            color: white;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .button_group label:hover, #submit:hover {
+            background-color: #ffecd2;
+            color: #f2764c;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Prediction container styling */
+        #prediction {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #prediction h1 {
+            color: #f7784e;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        #prediction h3 {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Image Caption Generator</h2>
+        <form method="post" enctype="multipart/form-data">
+            <div class="button_group">
+                <input type="file" id="file" accept="image/*" name="file">
+                <label for="file">Upload File</label>
+            </div>
+            <div id="imageContainer">
+                <img id="displayedImage" src="" alt="Selected Image">
+            </div>
+            <input type="submit" value="Predict" id="submit"/>
+        </form>
+
+        <div id="prediction">
+            {% if transcript != "" %}
+            <h3>{{transcript}}</h3>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        const imageInput = document.getElementById('file');
+        const displayedImage = document.getElementById('displayedImage');
+
+        imageInput.addEventListener('change', function () {
+            const selectedFile = imageInput.files[0];
+            if (selectedFile) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    displayedImage.src = e.target.result;
+                };
+                reader.readAsDataURL(selectedFile);
+            } else {
+                displayedImage.src = '';
+            }
+        });
+    </script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Viewer</title>
+    <style>
+        /* General body styling */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ffecd2, #fcb69f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: auto; /* Ensure the body can scroll */
+        }
+
+        /* Main container styling */
+        .container {
+            width: 90%;
+            max-width: 500px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            overflow: auto; /* Allow scrolling if needed */
+        }
+
+        /* Header styling */
+        h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        /* Image container styling */
+        #imageContainer {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* Ensure image does not overflow */
+        }
+
+        /* Image styling */
+        #displayedImage {
+            max-width: 100%;
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 5px;
+        }
+
+        /* Button group styling */
+        .button_group input {
+            display: none;
+        }
+
+        #submit {
+            outline: none; /* Removes the default outline */
+            border: none; /* Ensures no border is present */
+        }
+
+        .button_group label, #submit {
+            display: block;
+            width: 150px;
+            margin: 15px auto;
+            padding: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #f3825c;
+            color: white;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .button_group label:hover, #submit:hover {
+            background-color: #ffecd2;
+            color: #f2764c;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Prediction container styling */
+        #prediction {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #prediction h1 {
+            color: #f7784e;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        #prediction h3 {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Image Caption Generator</h2>
+        <form id="imageForm" method="post" enctype="multipart/form-data">
+            <div class="button_group">
+                <input type="file" id="file" accept="image/*" name="file">
+                <label for="file">Upload File</label>
+            </div>
+            <div id="imageContainer">
+                <img id="displayedImage" src="" alt="Selected Image">
+            </div>
+            <input type="submit" value="Predict" id="submit"/>
+        </form>
+
+        <div id="prediction">
+            {% if transcript != "" %}
+            <h3>{{transcript}}</h3>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('imageForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent form from refreshing the page
+
+            // FormData to handle file uploads
+            const formData = new FormData(this);
+
+            fetch('/predict', { // Update with your server endpoint
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the prediction result
+                document.getElementById('prediction').innerHTML = `
+                    <h3>${data.transcript}</h3>
+                `;
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        const imageInput = document.getElementById('file');
+        const displayedImage = document.getElementById('displayedImage');
+
+        imageInput.addEventListener('change', function () {
+            const selectedFile = imageInput.files[0];
+            if (selectedFile) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    displayedImage.src = e.target.result;
+                };
+                reader.readAsDataURL(selectedFile);
+            } else {
+                displayedImage.src = '';
+            }
+        });
+    </script>
+</body>
+</html>
